@@ -1,0 +1,318 @@
+﻿@page "/"
+@using Newtonsoft.Json
+@using Radzen.Blazor
+@using System.Text
+
+@if (Khams != null && Khams.Any())
+{
+    <RadzenTabs SelectedIndex="@selectedTabIndex" Change="@OnTabChange">
+        <Tabs>
+            @foreach (var visit in Khams)
+            {
+                <RadzenTabsItem Text="@(visit.Id)">
+                    <button @onclick="ThanhToan">chuyển thành publish</button>
+
+                    <div>
+                        <h3>Doctor: @visit.doctor</h3>
+                        <p>Status: @visit.status</p>
+                        <p>Created: @visit.created</p>
+                        <p>Encounter: @visit.encounter</p>
+                        <p>Service Request: @visit.service_request</p>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var kham in visit.value)
+                                {
+                                    <tr>
+                                        <td>@kham.code</td>
+                                        <td>
+                                            @foreach (var item in kham.value)
+                                            {
+                                                <div>@item</div>
+                                            }
+                                        </td>
+                                        <td><button class="btn btn-primary" @onclick="() => ShowUpdateModal(visit.Id, kham.code)">Sửa</button></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </RadzenTabsItem>
+            }
+        </Tabs>
+    </RadzenTabs>
+   
+}
+else
+{
+    <p>Không có dữ liệu khám được tìm thấy.</p>
+}
+
+
+
+<div class="modal" id="updateModal" tabindex="-1" role="dialog" style="display:@(IsUpdateModalVisible ? "block" : "none");">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cập nhật dữ liệu</h5>
+                <p>@Updatecode</p>
+                <p>@UpdateId</p>
+                <button type="button" class="close" @onclick="HideUpdateModal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="newValue">Giá trị mới :</label>
+                <input type="text" id="newValue" @bind="NewValue" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @onclick="HideUpdateModal">Trờ lại</button>
+                <button type="button" class="btn btn-primary" @onclick="UpdateData">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private List<Visit> Khams;
+    private string token = "FV0pJclr75laKx/PEkYYF4kZaGxwEfsxTh+W6IPBVJAvIcE1J0gE/BEEMt16hHzkJ1ouLds10mB+v+ou8w7q4Zp5GeHUFcJpResHiwCfmjLDS1TrMVaKl0NWgHac7VgiiAVmP0LdhFua7CPIDK6LJSkxI+IYs8VllLGUq78mPrvcReSAqG70q8zJJPYRpe9kwjsAfwUo6ijwa3of7IkIn1vr27021U5gNwamJIwHQyRz6WGmNCldw7WdlBWGvCcdOvtcoLHic/TQ2f/rr5sqxI8RrVaYAXUM/qILaxKwVUhstaoZFM4J39ldA/aEuyLhpn1Cknv300HFg8nPCDOHQg==";
+    private string ApiGet = "http://14.241.182.251:59325/api/medical/visit/eyJlbmNvdW50ZXIiOiAiMjQwMDA0NjUiLCAidHlwZSI6ICJPRVRfMDI2In0=";
+    private string ApiPut = "http://14.241.182.251:59325/api/medical/visit";
+    private string ApiPutStatus = "http://14.241.182.251:59325/api/medical/visit/status";
+    
+    private int selectedTabIndex = 0;
+    private string NewValue;
+    private bool IsUpdateModalVisible = false;
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+    private string UpdateId;
+    private string Updatecode;
+
+
+    private async Task ShowUpdateModal(string id, string code)
+    {
+        try
+        {
+            NewValue = "";
+            IsUpdateModalVisible = true;
+            Updatecode = code;
+            UpdateId = id;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Lỗi: " + ex.Message);
+        }
+    }
+
+
+    private void HideUpdateModal()
+    {
+        IsUpdateModalVisible = false;
+    }
+
+    private async Task UpdateData()
+    {
+        try
+        {
+            var apiUrl = ApiPut;
+
+            var requestData = new
+            {
+                data = new
+                {
+                    type = "OET_026",
+                    encounter = 24000465,
+                    subject = 23055134,
+                    request = 29647,
+                    doctor = 17071,
+                    id = UpdateId,
+                    items = new object[] {
+                    new { code = Updatecode, value = new [] { NewValue } },
+        }
+                },
+                token = token,
+                ip = "192:168:1:9",
+                code = "c9ccdc6f-898c-44b3-83bb-ccad9159eb0f"
+            };
+
+            var jsonContent = JsonConvert.SerializeObject(requestData);
+            var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+
+            using (var client = new HttpClient())
+            {
+                var request = new HttpRequestMessage(HttpMethod.Put, apiUrl);
+                request.Content = content;
+
+                var response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+
+                Console.WriteLine("Dữ liệu đã được cập nhật thành công.");
+
+                await LoadKham();
+
+                IsUpdateModalVisible = false;
+
+
+                StateHasChanged();
+            }
+
+
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Lỗi Yêu Cầu HTTP: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Lỗi Không Xác Định: {ex.Message}");
+        }
+    }
+
+
+
+
+
+
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadKham();
+    }
+
+    private async Task LoadKham()
+    {
+        try
+        {
+            using (var client = new HttpClient())
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, ApiGet);
+                request.Headers.Add("token", token);
+
+                var response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var apiResult = JsonConvert.DeserializeObject<KetNoi<List<Visit>>>(jsonString);
+
+                if (apiResult.status == "success")
+                {
+                    Khams = apiResult.value;
+                }
+                else
+                {
+                    Console.WriteLine($"Lỗi API: {apiResult.message}");
+                }
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Lỗi Yêu Cầu HTTP: {ex.Message}");
+        }
+        catch (JsonException ex)
+        {
+            Console.WriteLine($"Lỗi Deserialization JSON: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Lỗi Không Xác Định: {ex.Message}");
+        }
+    }
+
+
+
+    private string SelectedVisitId;
+
+
+    private void OnTabChange(int index)
+    {
+        selectedTabIndex = index;
+        SelectedVisitId = Khams[selectedTabIndex].Id;
+    }
+
+
+    private async Task ThanhToan()
+    {
+        try
+        {
+
+
+            using (var client = new HttpClient())
+            {
+                var request = new HttpRequestMessage(HttpMethod.Put, ApiPutStatus);
+                request.Headers.Add("token", token);
+
+                var jsonData = new
+                {
+                    data = new
+                    {
+                        encounter = "24000465",
+                        id = SelectedVisitId,
+                        type = "publish",
+                        doctor = 16631
+                    },
+                    token = token,
+                    ip = "192:168:1:15",
+                    code = "ad568891-dbc4-4241-a122-abb127901972"
+                };
+
+                var jsonContent = JsonConvert.SerializeObject(jsonData);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                request.Content = content;
+                var response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+
+                await LoadKham();
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Lỗi Yêu Cầu HTTP: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Lỗi Không Xác Định: {ex.Message}");
+        }
+    }
+
+
+
+
+
+
+    public class Visit
+    {
+        public string Id { get; set; }
+        public List<Kham> value { get; set; }
+        public string doctor { get; set; }
+        public string status { get; set; }
+        public DateTime created { get; set; }
+        public int encounter { get; set; }
+        public string service_request { get; set; }
+    }
+
+    public class Kham
+    {
+        public string code { get; set; }
+        public List<object> value { get; set; }
+    }
+
+    public class KetNoi<T>
+    {
+        public List<Visit> value { get; set; }
+        public string status { get; set; }
+        public string message { get; set; }
+    }
+}
+
