@@ -39,3 +39,6 @@ D:\Kham\Kham\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
 D:\Kham\Kham\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
 D:\Kham\Kham\bin\Debug\net7.0\Radzen.Blazor.dll
 D:\Kham\Kham\bin\Debug\net7.0\System.Linq.Dynamic.Core.dll
+D:\Kham\Kham\obj\Debug\net7.0\Kham.sourcelink.json
+D:\Kham\Kham\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
+D:\Kham\Kham\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll

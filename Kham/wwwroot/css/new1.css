@@ -1,0 +1,25 @@
+﻿/* Define the vertical layout */
+div.rz-tabs-vertical {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Adjust the style for the tab navigation */
+.rz-tabs-vertical .rz-tab-nav {
+    flex-direction: column;
+}
+
+/* Adjust the style for each tab */
+div.rz-tabs-vertical .rz-tab-nav-item {
+    border-left-width: 2px;
+    border-top-width: 0;
+    margin-right: 0;
+    margin-bottom: -1px;
+}
+
+    /* Adjust the style for the selected tab and hover effect */
+    div.rz-tabs-vertical .rz-tab-nav-item-selected,
+    div.rz-tabs-vertical .rz-tab-nav-item:hover:not(.rz-tab-nav-item-selected):not(.rz-state-disabled) {
+        border: 1px solid #e9eaed;
+        border-left: 2px solid #1151F3;
+    }

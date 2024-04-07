@@ -5,12 +5,20 @@
       "PackagePath": "staticwebassets\\Kham.bundle.scp.css"
     },
     {
+      "Id": "D:\\Kham\\Kham\\wwwroot\\css\\StyleSheet.css",
+      "PackagePath": "staticwebassets\\css\\StyleSheet.css"
+    },
+    {
       "Id": "D:\\Kham\\Kham\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
     },
     {
       "Id": "D:\\Kham\\Kham\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\Kham\\Kham\\wwwroot\\css\\new1.css",
+      "PackagePath": "staticwebassets\\css\\new1.css"
     },
     {
       "Id": "D:\\Kham\\Kham\\wwwroot\\css\\open-iconic\\FONT-LICENSE",

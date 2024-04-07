@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1g17sQpEkp3Ib8+y/n5LNwcepGslceqii9BTfwjvYyQ=",
+  "Hash": "KIfH1BzZWQx04f3q/yH0UyQKA7YKd7Zors/7WT+2/Wk=",
   "Source": "Kham",
   "BasePath": "_content/Kham",
   "Mode": "Default",
@@ -1024,6 +1024,25 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
+      "Identity": "D:\\Kham\\Kham\\wwwroot\\css\\new1.css",
+      "SourceId": "Kham",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Kham\\Kham\\wwwroot\\",
+      "BasePath": "_content/Kham",
+      "RelativePath": "css/new1.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\new1.css"
+    },
+    {
       "Identity": "D:\\Kham\\Kham\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "Kham",
       "SourceType": "Discovered",
@@ -1212,6 +1231,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "D:\\Kham\\Kham\\wwwroot\\css\\StyleSheet.css",
+      "SourceId": "Kham",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Kham\\Kham\\wwwroot\\",
+      "BasePath": "_content/Kham",
+      "RelativePath": "css/StyleSheet.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\StyleSheet.css"
     },
     {
       "Identity": "D:\\Kham\\Kham\\wwwroot\\favicon.png",
