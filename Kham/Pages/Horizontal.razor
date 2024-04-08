@@ -5,6 +5,10 @@
 
 @using Microsoft.EntityFrameworkCore
 
+
+
+<RadzenButton Click="@(args => SendDataAsync())" Text="Lưu Dữ Liệu" ButtonStyle="ButtonStyle.Primary" Style="margin-bottom:20px" />
+
 <RadzenTabs @bind-SelectedIndex=@selectedIndex TabPosition="@tabPosition" RenderMode="TabRenderMode.Client">
     <Tabs>
         <RadzenTabsItem Text="1.Thông tin cá nhân và thời gian khám:" Class="custom-tabs-item">
@@ -16,6 +20,25 @@
             <br />
             <RadzenLabel Text="Select Time, bound to TimeOnly" Component="DatePickerTimeOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
             <RadzenDatePicker @bind-Value="@OBS_0400" ShowSeconds="true" DateFormat="HH:mm" Name="DatePickerTimeOnlyType" />
+
+            <br />
+            <br />
+            <RadzenLabel Text="0003" Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
+            <RadzenRadioButtonList @bind-Value=@OBS_0003 TValue="string" class="mb-5">
+                <Items>
+                    <RadzenRadioButtonListItem Text="Có" Value=@("Có") />
+                    <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
+                </Items>
+            </RadzenRadioButtonList>
+            <br />
+            <br />
+            <RadzenLabel Text="0004" Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
+            <RadzenRadioButtonList @bind-Value=@OBS_0004 TValue="string" class="mb-5">
+                <Items>
+                    <RadzenRadioButtonListItem Text="Có" Value=@("Có") />
+                    <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
+                </Items>
+            </RadzenRadioButtonList>
 
         </RadzenTabsItem>
 
@@ -147,71 +170,80 @@
                     <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
                 </Items>
             </RadzenRadioButtonList>
-
-
-            <br />
-            <RadzenLabel Text="Chu kì kinh " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
-            <RadzenRadioButtonList @bind-Value=@OBS_0356 TValue="string" class="mb-5">
-                <Items>
-                    <RadzenRadioButtonListItem Text="Đều" Value=@("Đều") />
-                    <RadzenRadioButtonListItem Text="Không đều" Value=@("Không đều") />
-                </Items>
-            </RadzenRadioButtonList>
-
             <br />
             <RadzenLabel Text="Số mũi tiêm phòng uống ván đã tiêm " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
             <RadzenNumeric @bind-Value=@OBS_0343 InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" />
 
             <br />
-            <RadzenLabel Text="Thuốc đang dùng " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
-            <RadzenRadioButtonList @bind-Value=@OBS_0353 TValue="string" class="mb-5">
-                <Items>
-                    <RadzenRadioButtonListItem Text="Có" Value=@("Có") />
-                    <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
-                </Items>
-            </RadzenRadioButtonList>
-
-            <br>
-            <RadzenLabel Text="Tiền sử phẩu thuật " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
-            <RadzenRadioButtonList @bind-Value=@OBS_0354 TValue="string" class="mb-5">
-                <Items>
-                    <RadzenRadioButtonListItem Text="Có" Value=@("Có") />
-                    <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
-                </Items>
-            </RadzenRadioButtonList>
+            <br />
+            <br />
+            <div style="display: flex; align-items: baseline;">
+                <div style="flex: 1;">
+                    <RadzenLabel Text="Chu kì kinh " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
+                    <RadzenRadioButtonList @bind-Value=@OBS_0356 TValue="string" class="mb-5">
+                        <Items>
+                            <RadzenRadioButtonListItem Text="Đều" Value=@("Đều") />
+                            <RadzenRadioButtonListItem Text="Không đều" Value=@("Không đều") />
+                        </Items>
+                    </RadzenRadioButtonList>
+                </div>
+                <div style="flex: 1;">
+                    <RadzenLabel Text="Thuốc đang dùng " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
+                    <RadzenRadioButtonList @bind-Value=@OBS_0353 TValue="string" class="mb-5">
+                        <Items>
+                            <RadzenRadioButtonListItem Text="Có" Value=@("Có") />
+                            <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
+                        </Items>
+                    </RadzenRadioButtonList>
+                </div>
+                <div style="flex: 1;">
+                    <RadzenLabel Text="Tiền sử phẩu thuật " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
+                    <RadzenRadioButtonList @bind-Value=@OBS_0354 TValue="string" class="mb-5">
+                        <Items>
+                            <RadzenRadioButtonListItem Text="Có" Value=@("Có") />
+                            <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
+                        </Items>
+                    </RadzenRadioButtonList>
+                </div>
+            </div>   
 
             <br />
             <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Tiền sử sản khoa</RadzenText>
             <RadzenTextArea @bind-Value="OBS_0355" class="w-30" aria-label="TextArea" Style="width: 100%;" />
 
-            <br />
-            <RadzenLabel Text="Bệnh di truyền " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
-            <RadzenRadioButtonList @bind-Value=@OBS_0366 TValue="string" class="mb-5">
-                <Items>
-                    <RadzenRadioButtonListItem Text="Có" Value=@("Có") />
-                    <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
-                </Items>
-            </RadzenRadioButtonList>
+
 
             <br />
-            <RadzenLabel Text="Đái tháo đường " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
-            <RadzenRadioButtonList @bind-Value=@OBS_0367 TValue="string" class="mb-5">
-                <Items>
-                    <RadzenRadioButtonListItem Text="Có" Value=@("Có") />
-                    <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
-                </Items>
-            </RadzenRadioButtonList>
-
-            <br />
-            <RadzenLabel Text="Tăng huyết áp " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
-            <RadzenRadioButtonList @bind-Value=@OBS_0368 TValue="string" class="mb-5">
-                <Items>
-                    <RadzenRadioButtonListItem Text="Có" Value=@("Có") />
-                    <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
-                </Items>
-            </RadzenRadioButtonList>
-
-
+            <div style="display: flex; align-items: baseline;">
+                <div style="flex: 1;">
+                    <RadzenLabel Text="Bệnh di truyền " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
+                    <RadzenRadioButtonList @bind-Value=@OBS_0366 TValue="string" class="mb-5">
+                        <Items>
+                            <RadzenRadioButtonListItem Text="Có" Value=@("Có") />
+                            <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
+                        </Items>
+                    </RadzenRadioButtonList>
+                </div>
+                <div style="flex: 1;">
+                    <RadzenLabel Text="Đái tháo đường " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
+                    <RadzenRadioButtonList @bind-Value=@OBS_0367 TValue="string" class="mb-5">
+                        <Items>
+                            <RadzenRadioButtonListItem Text="Có" Value=@("Có") />
+                            <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
+                        </Items>
+                    </RadzenRadioButtonList>
+                </div>
+                <div style="flex: 1;">
+                    <RadzenLabel Text="Tăng huyết áp " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
+                    <RadzenRadioButtonList @bind-Value=@OBS_0368 TValue="string" class="mb-5">
+                        <Items>
+                            <RadzenRadioButtonListItem Text="Có" Value=@("Có") />
+                            <RadzenRadioButtonListItem Text="Không" Value=@("Không") />
+                        </Items>
+                    </RadzenRadioButtonList>
+                </div>
+            </div>
+            
             <br />
             <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Khác </RadzenText>
             <RadzenTextArea @bind-Value="OBS_0369" class="w-30" aria-label="TextArea" Style="width: 100%;" />
@@ -638,13 +670,16 @@
 
 
     </Tabs>
+   
 </RadzenTabs>
-<button @onclick="SendDataAsync">Lưu Dữ Liệu</button>
+
+
 
 @code {
     int selectedIndex = 0;
     TabPosition tabPosition = TabPosition.Left;
 
+    private string token = "FV0pJclr75laKx/PEkYYF4kZaGxwEfsxTh+W6IPBVJAvIcE1J0gE/BEEMt16hHzkJ1ouLds10mB+v+ou8w7q4Zp5GeHUFcJpResHiwCfmjLDS1TrMVaKl0NWgHac7VgiiAVmP0LdhFua7CPIDK6LJSkxI+IYs8VllLGUq78mPrvcReSAqG70q8zJJPYRpe9kwjsAfwUo6ijwa3of7IkIn1vr27021U5gNwamJIwHQyRz6WGmNCldw7WdlBWGvCcdOvtcoLHic/TQ2f/rr5sqxI8RrVaYAXUM/qILaxKwVUhstaoZFM4J39ldA/aEuyLhpn1Cknv300HFg8nPCDOHQg==";
     private string ApiPosrt = "http://14.241.182.251:59325/api/medical/visit";
     string OBS_0003 = "";
     string OBS_0004 = "";
@@ -818,7 +853,7 @@
                 new { code = "OBS_0400", value = new [] { OBS_0400 } },
     }
             },
-            token = "FV0pJclr75laKx/PEkYYF4kZaGxwEfsxTh+W6IPBVJAvIcE1J0gE/BEEMt16hHzkJ1ouLds10mB+v+ou8w7q4Zp5GeHUFcJpResHiwCfmjLDS1TrMVaKl0NWgHac7VgiiAVmP0LdhFua7CPIDK6LJSkxI+IYs8VllLGUq78mPrvcReSAqG70q8zJJPYRpe9kwjsAfwUo6ijwa3of7IkIn1vr27021U5gNwamJIwHQyRz6WGmNCldw7WdlBWGvCcdOvtcoLHic/TQ2f/rr5sqxI8RrVaYAXUM/qILaxKwVUhstaoZFM4J39ldA/aEuyLhpn1Cknv300HFg8nPCDOHQg==",
+            token = token,
             ip = "192:168:1:9",
             code = "c9ccdc6f-898c-44b3-83bb-ccad9159eb0f"
         };

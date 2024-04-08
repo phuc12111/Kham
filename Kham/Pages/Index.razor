@@ -5,19 +5,19 @@
 
 @if (Khams != null && Khams.Any())
 {
-    <RadzenTabs SelectedIndex="@selectedTabIndex" Change="@OnTabChange">
+    <RadzenTabs SelectedIndex="@selectedTabIndex" Change="@OnTabChange" style="width: 1000px;">
         <Tabs>
-            @foreach (var visit in Khams)
+            @foreach (var visit in Khams.Select((value, index) => new { Index = index + 1, Value = value }))
             {
-                <RadzenTabsItem Text="@(visit.Id)">
+                <RadzenTabsItem Text="@($"Phiếu {visit.Index}")" >
                     <button @onclick="ThanhToan">chuyển thành publish</button>
 
                     <div>
-                        <h3>Doctor: @visit.doctor</h3>
-                        <p>Status: @visit.status</p>
-                        <p>Created: @visit.created</p>
-                        <p>Encounter: @visit.encounter</p>
-                        <p>Service Request: @visit.service_request</p>
+                        <h3>Doctor: @visit.Value.doctor</h3>
+                        <p>Status: @visit.Value.status</p>
+                        <p>Created: @visit.Value.created</p>
+                        <p>Encounter: @visit.Value.encounter</p>
+                        <p>Service Request: @visit.Value.service_request</p>
 
                         <table>
                             <thead>
@@ -27,7 +27,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var kham in visit.value)
+                                @foreach (var kham in visit.Value.value)
                                 {
                                     <tr>
                                         <td>@kham.code</td>
@@ -37,7 +37,7 @@
                                                 <div>@item</div>
                                             }
                                         </td>
-                                        <td><button class="btn btn-primary" @onclick="() => ShowUpdateModal(visit.Id, kham.code)">Sửa</button></td>
+                                        <td><button class="btn btn-primary" @onclick="() => ShowUpdateModal(visit.Value.Id, kham.code)">Sửa</button></td>
                                     </tr>
                                 }
                             </tbody>
@@ -45,6 +45,7 @@
                     </div>
                 </RadzenTabsItem>
             }
+
         </Tabs>
     </RadzenTabs>
    
