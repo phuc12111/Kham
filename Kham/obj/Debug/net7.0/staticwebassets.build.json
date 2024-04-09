@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "KIfH1BzZWQx04f3q/yH0UyQKA7YKd7Zors/7WT+2/Wk=",
+  "Hash": "0gcoLvXPwLYaq706Oa8usl+UjoLHlKu9qEHpi5pHNgY=",
   "Source": "Kham",
   "BasePath": "_content/Kham",
   "Mode": "Default",
@@ -1022,25 +1022,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
-    },
-    {
-      "Identity": "D:\\Kham\\Kham\\wwwroot\\css\\new1.css",
-      "SourceId": "Kham",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Kham\\Kham\\wwwroot\\",
-      "BasePath": "_content/Kham",
-      "RelativePath": "css/new1.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\new1.css"
     },
     {
       "Identity": "D:\\Kham\\Kham\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",

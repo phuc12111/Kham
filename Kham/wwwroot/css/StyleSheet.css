@@ -6,3 +6,6 @@
     overflow-y: auto; 
 }
 
+.rz-tabview-nav{
+    max-width:300px;
+}

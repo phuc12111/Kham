@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Kham")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d6462107fa87a622d6631877ffd69f59f8b12066")]
 [assembly: System.Reflection.AssemblyProductAttribute("Kham")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Kham")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

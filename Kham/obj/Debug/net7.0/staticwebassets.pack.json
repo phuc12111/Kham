@@ -17,10 +17,6 @@
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "D:\\Kham\\Kham\\wwwroot\\css\\new1.css",
-      "PackagePath": "staticwebassets\\css\\new1.css"
-    },
-    {
       "Id": "D:\\Kham\\Kham\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "PackagePath": "staticwebassets\\css\\open-iconic"
     },

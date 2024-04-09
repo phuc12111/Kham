@@ -46,8 +46,12 @@
         <RadzenTabsItem Text="2.Thông tin về thai kỳ:" Class="custom-tabs-item">
             <div style="display: flex; align-items: baseline;">
                 <div style="flex: 1;">
-                    <RadzenLabel Text="Ngày đầu kì kinh cuối " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
-                    <RadzenDatePicker @bind-Value="@OBS_0340" DateFormat="MM/dd/yyyy" Name="DatePickerDateOnlyType" />
+                    <RadzenLabel Text="Ngày đầu kì kinh cuối " Component="DatePickerDateOnlyType"
+                                 Style="font-size: smaller; margin-right: 8px; vertical-align: middle;" />
+                    <RadzenDatePicker @bind-Value="@OBS_0340" DateFormat="MM/dd/yyyy"
+                                      Name="DatePickerDateOnlyType"
+                                      Style="font-size: smaller;" />
+
                 </div>
                 <div style="flex: 1;">
                     <RadzenLabel Text="Tuổi thai " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
@@ -271,7 +275,7 @@
             <br />
             <div style="display: flex; align-items: baseline;">
                 <div style="flex: 1;">
-                    <RadzenFormField Text="Diễn biến khi có thai " Style="width: 400px;">
+                    <RadzenFormField Text="Diễn biến khi có thai " Style="width: 300px;">
                         <RadzenTextBox @bind-Value="@OBS_0345_03" />
                     </RadzenFormField>
                 </div>
@@ -286,7 +290,7 @@
             <br />
             <div style="display: flex; align-items: baseline;">
                 <div style="flex: 1;">
-                    <RadzenFormField Text="Trẻ sơ sinh (cân nặng, bệnh tật)" Style="width: 400px;">
+                    <RadzenFormField Text="Trẻ sơ sinh (cân nặng, bệnh tật)" Style="width: 300px;">
                         <RadzenTextBox @bind-Value="@OBS_0345_05" />
                     </RadzenFormField>
                 </div>
@@ -413,16 +417,18 @@
                 </div>
             </div>
 
-
-            <br />
-            <div>Chiều cao tử cung </div>
-            <RadzenNumeric @bind-Value=@OBS_0375 InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" />
-
-
-            <br />
-            <div>Vòng bụng </div>
-            <RadzenNumeric @bind-Value=@OBS_0376 InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" />
-
+            <div style="display: flex; align-items: baseline;">
+                <div style="flex: 1;">
+                    <br />
+                    <div>Chiều cao tử cung </div>
+                    <RadzenNumeric @bind-Value=@OBS_0375 InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" />
+                </div>
+                <div style="flex: 1;">
+                     <br />
+                    <div>Vòng bụng </div>
+                        <RadzenNumeric @bind-Value=@OBS_0376 InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" />
+                </div>
+            </div>
             <br />
             <div style="display: flex; align-items: baseline;">
                 <div style="flex: 1;">
