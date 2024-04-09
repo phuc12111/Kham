@@ -1,3 +1,8 @@
 ﻿.rz-tabview rz-tabview-top {
-    max-width: calc(100% - 300px),
+    max-width: calc(100% - 300px);
 }
+
+.content {
+    overflow-y: auto; 
+}
+
