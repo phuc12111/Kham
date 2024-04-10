@@ -2,6 +2,7 @@
 @using System.Net.Http
 @inject HttpClient HttpClient
 @inject NavigationManager Navigation
+@inject NotificationService NotificationService
 
 @using Microsoft.EntityFrameworkCore
 
@@ -58,9 +59,9 @@
                     <RadzenNumeric @bind-Value=@OBS_0341 InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" />
                 </div>
             </div>
-   <br />
-   <br />
-   <br />
+            <br />
+            <br />
+            <br />
             <div style="display: flex; align-items: baseline;">
                 <div style="flex: 1;">
                     <RadzenLabel Text="Ngày dự kiến sinh " Component="DatePickerDateOnlyType" Style="margin-right: 8px; vertical-align: middle;" />
@@ -209,7 +210,7 @@
                         </Items>
                     </RadzenRadioButtonList>
                 </div>
-            </div>   
+            </div>
 
             <br />
             <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Tiền sử sản khoa</RadzenText>
@@ -247,7 +248,7 @@
                     </RadzenRadioButtonList>
                 </div>
             </div>
-            
+
             <br />
             <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Khác </RadzenText>
             <RadzenTextArea @bind-Value="OBS_0369" class="w-30" aria-label="TextArea" Style="width: 100%;" />
@@ -424,9 +425,9 @@
                     <RadzenNumeric @bind-Value=@OBS_0375 InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" />
                 </div>
                 <div style="flex: 1;">
-                     <br />
+                    <br />
                     <div>Vòng bụng </div>
-                        <RadzenNumeric @bind-Value=@OBS_0376 InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" />
+                    <RadzenNumeric @bind-Value=@OBS_0376 InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" />
                 </div>
             </div>
             <br />
@@ -676,7 +677,7 @@
 
 
     </Tabs>
-   
+
 </RadzenTabs>
 
 
@@ -866,6 +867,13 @@
 
         var response = await HttpClient.PostAsJsonAsync(ApiPosrt, data);
         response.EnsureSuccessStatusCode();
+
+        NotificationService.Notify(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Thêm phiếu thành công",
+                Detail = "Phiếu đã được thêm thành công"
+            });
 
         Navigation.NavigateTo("/");
     }

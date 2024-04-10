@@ -2,10 +2,14 @@
 @using Newtonsoft.Json
 @using Radzen.Blazor
 @using System.Text
+@inject NotificationService NotificationService
+
+<h1>Danh sách phiếu khám thai </h1>
 
 @if (Khams != null && Khams.Any())
 {
-    <RadzenTabs SelectedIndex="@selectedTabIndex" Change="@OnTabChange" style="width: 1000px;">
+
+    <RadzenTabs SelectedIndex="@selectedTabIndex" TabPosition="@tabPosition" RenderMode="TabRenderMode.Client" Change="@OnTabChange" style="width: 1000px; padding: 8px;">
         <Tabs>
             @foreach (var visit in Khams.Select((value, index) => new { Index = index + 1, Value = value }))
             {
@@ -17,12 +21,13 @@
                         <p>Status: @visit.Value.status</p>
                         <p>Created: @visit.Value.created</p>
                         <p>Encounter: @visit.Value.encounter</p>
+                        <p>Id của phiếu : @visit.Value.Id</p>
                         <p>Service Request: @visit.Value.service_request</p>
 
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Code</th>
+                                    <th>Tên  </th>
                                     <th>Value</th>
                                 </tr>
                             </thead>
@@ -30,7 +35,7 @@
                                 @foreach (var kham in visit.Value.value)
                                 {
                                     <tr>
-                                        <td>@kham.code</td>
+                                        <td>@DecodeCode(kham.code)</td>
                                         <td>
                                             @foreach (var item in kham.value)
                                             {
@@ -69,7 +74,7 @@ else
                 </button>
             </div>
             <div class="modal-body">
-                <label for="newValue">Giá trị mới :</label>
+                <label for="newValue">Giá trị mới : </label>
                 <input type="text" id="newValue" @bind="NewValue" />
             </div>
             <div class="modal-footer">
@@ -82,12 +87,13 @@ else
 
 
 @code {
+    TabPosition tabPosition = TabPosition.Left;
     private List<Visit> Khams;
     private string token = "FV0pJclr75laKx/PEkYYF4kZaGxwEfsxTh+W6IPBVJAvIcE1J0gE/BEEMt16hHzkJ1ouLds10mB+v+ou8w7q4Zp5GeHUFcJpResHiwCfmjLDS1TrMVaKl0NWgHac7VgiiAVmP0LdhFua7CPIDK6LJSkxI+IYs8VllLGUq78mPrvcReSAqG70q8zJJPYRpe9kwjsAfwUo6ijwa3of7IkIn1vr27021U5gNwamJIwHQyRz6WGmNCldw7WdlBWGvCcdOvtcoLHic/TQ2f/rr5sqxI8RrVaYAXUM/qILaxKwVUhstaoZFM4J39ldA/aEuyLhpn1Cknv300HFg8nPCDOHQg==";
     private string ApiGet = "http://14.241.182.251:59325/api/medical/visit/eyJlbmNvdW50ZXIiOiAiMjQwMDA0NjUiLCAidHlwZSI6ICJPRVRfMDI2In0=";
     private string ApiPut = "http://14.241.182.251:59325/api/medical/visit";
     private string ApiPutStatus = "http://14.241.182.251:59325/api/medical/visit/status";
-    
+
     private int selectedTabIndex = 0;
     private string NewValue;
     private bool IsUpdateModalVisible = false;
@@ -137,7 +143,7 @@ else
                     id = UpdateId,
                     items = new object[] {
                     new { code = Updatecode, value = new [] { NewValue } },
-        }
+    }
                 },
                 token = token,
                 ip = "192:168:1:9",
@@ -274,6 +280,13 @@ else
                 response.EnsureSuccessStatusCode();
                 Console.WriteLine(await response.Content.ReadAsStringAsync());
 
+                NotificationService.Notify(new NotificationMessage
+                    {
+                        Severity = NotificationSeverity.Success,
+                        Summary = "Phiếu đã được thanh toán ",
+                        Detail = "Phiếu đã chuyển về publish"
+                    });
+
                 await LoadKham();
             }
         }
@@ -288,6 +301,158 @@ else
     }
 
 
+
+    private string DecodeCode(string code)
+    {
+        switch (code)
+        {
+            case "OBS_0337":
+                return "Ngày khám ";
+            case "OBS_0338":
+                return "Chuẩn đoán ";
+            case "OBS_0339":
+                return "Xủ trí ";
+            case "OBS_0340":
+                return "Ngày đầu kỳ kinh cuối ";
+            case "OBS_0341":
+                return "Tuổi thai ";
+            case "OBS_0342":
+                return "Ngày dự kiến sinh ";
+            case "OBS_0343":
+                return "Số mui tiêm phòng uốn ván đã tiêm ";
+            case "OBS_0344":
+                return "Dị ứng ";
+            case "OBS_0345_1":
+                return "Thời gian, nơi kết thúc thai ngén ";
+            case "OBS_0345_2":
+                return "Tuổi thai(sảy, sinh non, đủ tháng, già tháng )";
+            case "OBS_0345_3":
+                return "Diễn biến khi có thai ";
+            case "OBS_0345_4":
+                return "các thức sinh ";
+            case "OBS_0345_5":
+                return "Trẻ sơ sinh(cân nặng, bệnh tật)";
+            case "OBS_0345_6":
+                return "Hậu sản ";
+            case "OBS_0346":
+                return "Bệnh huyết áp ";
+            case "OBS_0347":
+                return "Bệnh tuyến giáp ";
+            case "OBS_0348":
+                return "Bệnh tim ";
+            case "OBS_0349":
+                return "Bệnh thận ";
+            case "OBS_0350":
+                return "Bệnh hô hấp ";
+            case "OBS_0351":
+                return "Đái tháo đường";
+            case "OBS_0352":
+                return "Khác(tiền sử bệnh) ";
+            case "OBS_0353":
+                return "Thuốc đang dùng ";
+            case "OBS_0354":
+                return "Tiền sử phẩu thuật ";
+            case "OBS_0355":
+                return "Tiền sử sản khoa";
+            case "OBS_0356":
+                return "Chu kì kinh ";
+            case "OBS_0357":
+                return "Phẩu thuật phụ khoa";
+            case "OBS_0358":
+                return "Khối u buồn trứng ";
+            case "OBS_0359":
+                return "Khối u tử cung";
+            case "OBS_0360":
+                return "Dị dạng sinh dục ";
+            case "OBS_0361":
+                return "Tầng sinh môn ";
+            case "OBS_0362":
+                return "Sa tạng chậu ";
+            case "OBS_0363":
+                return "Bệnh phụ khoa đã mắc và điều trị ";
+            case "OBS_0364":
+                return "Đa thai ";
+            case "OBS_0365":
+                return "Dị dạng ";
+            case "OBS_0366":
+                return "Bệnh di truyền ";
+            case "OBS_0367":
+                return "Đái tháo dường ";
+            case "OBS_0368":
+                return "Tăng huyết áp ";
+            case "OBS_0369":
+                return "Khác";
+            case "OBS_0370":
+                return "Tinh thần ";
+            case "OBS_0371":
+                return "Phù ";
+            case "OBS_0372":
+                return "Protein niệu ";
+            case "OBS_0373":
+                return "Sẹo mổ cũ";
+            case "OBS_0374":
+                return "Khung chậu ";
+            case "OBS_0375":
+                return "Chiều cao tử cung";
+            case "OBS_0376":
+                return "Vòng bụng";
+            case "OBS_0377":
+                return "Ngôi thai";
+            case "OBS_0378":
+                return "Cơn co tử cung";
+            case "OBS_0380":
+                return "Tim thai ";
+            case "OBS_0381":
+                return "Cổ tử cung";
+            case "OBS_0382":
+                return "Đầu ối";
+            case "OBS_0383":
+                return "Nước ói ";
+            case "OBS_0384":
+                return "Xét nghiệm máu ngoại vi ";
+            case "OBS_0385":
+                return "Xét nghiệm đông máu ";
+            case "OBS_0386":
+                return "Xét nghiệm sinh hóa máu ";
+            case "OBS_0387":
+                return "Xét nghiệm HIV ";
+            case "OBS_0388":
+                return "Xét nghiệm viêm gan B";
+            case "OBS_0389":
+                return "Xét nghiệm giang mai";
+            case "OBS_0390":
+                return "Xét nghiệm protein nước tiểu ";
+            case "OBS_0391":
+                return "Siêu âm ";
+            case "OBS_0392":
+                return "Khác(Các xét nghiệm/cậnn lâm sàng) ";
+            case "OBS_0393":
+                return "Hướng điều trị tiếp theo";
+            case "OBS_0394":
+                return "Tư vấn/giáo dục sức khỏe cho người bệnh và thân nhân ";
+            case "OBS_0395":
+                return "Tiêu lượng ";
+            case "OBS_0396":
+                return "Lưu ý ";
+            case "OBS_0397":
+                return "Người khám ";
+            case "OBS_0398_01":
+                return "Số lần đẻ đủ thág ";
+            case "OBS_039_02":
+                return "Số lần đẻ non ";
+            case "OBS_0398_03":
+                return "Số lần xảy thai và phá thai ";
+            case "OBS_0399":
+                return "Số lần khám thai ";
+            case "OBS_0400":
+                return "Thời gian ";
+
+
+
+            default:
+                return code;
+        }
+    }
 
 
 
